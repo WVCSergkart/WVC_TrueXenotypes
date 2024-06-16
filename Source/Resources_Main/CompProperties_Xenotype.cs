@@ -134,9 +134,14 @@ namespace WVC_TrueXenotypes
 				// List<XenotypeDef> xenotypes = DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2);
 				List<GeneDef> pawnGenes = ConvertGenesInGeneDefs(pawn.genes.GenesListForReading);
 				Dictionary<XenotypeDef, float> matchedXenotypes = new();
+				bool xenos = !pawn.genes.Xenogenes.NullOrEmpty();
 				foreach (XenotypeDef xenotypeDef in DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2))
 				{
 					if (xenotypeDef.genes.NullOrEmpty())
+					{
+						continue;
+					}
+					if (!xenos && !xenotypeDef.inheritable)
 					{
 						continue;
 					}
@@ -156,10 +161,10 @@ namespace WVC_TrueXenotypes
 						continue;
 					}
 					// float matchingGenesCount = XaG_GeneUtility.GetMatchingGenesList(pawn.genes.GenesListForReading, xenotypeDef.genes).Count;
-					matchedXenotypes[xenotypeDef] = matchingGenesCount / xenotypeDef.genes.Count;
+					matchedXenotypes[xenotypeDef] = matchingGenesCount - xenotypeDef.genes.Count;
 				}
 				XenotypeDef resultXenotype = XenotypeDefOf.Baseliner;
-				float currentMatchValue = 0f;
+				float currentMatchValue = -999f;
 				if (!matchedXenotypes.NullOrEmpty())
 				{
 					foreach (var item in matchedXenotypes)
@@ -198,6 +203,10 @@ namespace WVC_TrueXenotypes
 					{
 						pawn.genes.iconDef = DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
 					}
+				}
+				else if (baseliner)
+				{
+					pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
 				}
 				return true;
 			}
