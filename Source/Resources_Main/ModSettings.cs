@@ -12,6 +12,8 @@ namespace WVC_TrueXenotypes
 	{
 
 		public bool enable_CustomXenotypeImporter = false;
+		public bool enable_TrueParentGenes = false;
+		public bool enable_TrueXenotypes = false;
 		public List<XenotypeProp> importedCustomXenotypes = new();
 
 		public IEnumerable<string> GetEnabledSettings => from specificSetting in GetType().GetFields()
@@ -23,6 +25,8 @@ namespace WVC_TrueXenotypes
 			base.ExposeData();
 			Scribe_Values.Look(ref enable_CustomXenotypeImporter, "enable_CustomXenotypeImporter", defaultValue: false);
 			Scribe_Collections.Look(ref importedCustomXenotypes, "importedCustomXenotypes", LookMode.Deep);
+			Scribe_Values.Look(ref enable_TrueParentGenes, "enable_TrueParentGenes", defaultValue: false);
+			Scribe_Values.Look(ref enable_TrueXenotypes, "enable_TrueXenotypes", defaultValue: false);
 		}
 	}
 
@@ -86,6 +90,8 @@ namespace WVC_TrueXenotypes
 			Listing_Standard listingStandard = new();
 			listingStandard.Begin(rect);
 			// =============== Buttons ===============
+			listingStandard.CheckboxLabeled("WVC_Label_enable_TrueParentGenes".Translate(), ref settings.enable_TrueParentGenes, "WVC_ToolTip_enable_TrueParentGenes".Translate());
+			listingStandard.CheckboxLabeled("WVC_Label_enable_TrueXenotypes".Translate(), ref settings.enable_TrueXenotypes, "WVC_ToolTip_enable_TrueXenotypes".Translate());
 			listingStandard.CheckboxLabeled("WVC_Label_enable_CustomXenotypeImporter".Translate(), ref settings.enable_CustomXenotypeImporter, "WVC_ToolTip_enable_CustomXenotypeImporter".Translate());
 			if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport".Translate()))
 			{

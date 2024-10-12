@@ -68,6 +68,7 @@
     <Compile Include="Resources_Main\Dialog_CustomXenotypesImport.cs" />
     <Compile Include="Resources_Main\Harmony_DefGenerator.cs" />
     <Compile Include="Resources_Main\Harmony_GeneOverride.cs" />
+    <Compile Include="Resources_Main\HediffComp_ParentGenes.cs" />
     <Compile Include="Resources_Main\ModSettings.cs" />
     <Compile Include="Resources_Main\StaticCollection.cs" />
     <Compile Include="Resources_Main\Templates_Utility.cs" />

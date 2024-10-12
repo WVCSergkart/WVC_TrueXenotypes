@@ -8,4 +8,13 @@
 	  </value>
 	</Operation>
 
+	<Operation Class="PatchOperationAdd">
+	  <xpath>/Defs/HediffDef[defName="PregnantHuman"]/comps</xpath>
+	  <value>
+		<li Class="WVC_TrueXenotypes.HediffCompProperties_TrueParentGenes">
+		  <compClass>WVC_TrueXenotypes.HediffComp_TrueParentGenes</compClass>
+		</li>
+	  </value>
+	</Operation>
+
 </Patch>

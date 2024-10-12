@@ -16,7 +16,7 @@ namespace WVC_TrueXenotypes
 
 		// public IntRange resurrectionDelay = new(6000, 9000);
 
-		public string uniqueTag = "TrueXenotype";
+		public string uniqueTag = "trueXenotype";
 
 		public CompProperties_Xenotype()
 		{
@@ -47,7 +47,7 @@ namespace WVC_TrueXenotypes
 
 		private bool xenotypeUpdated = false;
 
-		private int nextTick = 60;
+		private int nextTick = 10;
 
 		// =================
 
@@ -56,20 +56,25 @@ namespace WVC_TrueXenotypes
 			Tick();
 		}
 
-		public override void CompTickRare()
-		{
-			Tick();
-		}
+		// public override void CompTickRare()
+		// {
+			// Tick();
+		// }
 
-		public override void CompTickLong()
-		{
-			Tick();
-		}
+		// public override void CompTickLong()
+		// {
+			// Tick();
+		// }
 
 		public void Tick()
 		{
 			if (xenotypeUpdated)
 			{
+				return;
+			}
+			if (!WVC_TrueXenotypes.settings.enable_TrueXenotypes)
+			{
+				xenotypeUpdated = true;
 				return;
 			}
 			nextTick--;
@@ -213,11 +218,11 @@ namespace WVC_TrueXenotypes
 			return false;
 		}
 
-		// public override void PostExposeData()
-		// {
-			// base.PostExposeData();
-			// Scribe_Values.Look(ref xenotypeUpdated, Props.uniqueTag + "_xenotypeUpdated", false);
-		// }
+		public override void PostExposeData()
+		{
+			base.PostExposeData();
+			Scribe_Values.Look(ref xenotypeUpdated, Props.uniqueTag + "_xenotypeUpdated", false);
+		}
 
 	}
 
