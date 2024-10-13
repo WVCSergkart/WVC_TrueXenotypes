@@ -14,6 +14,8 @@ namespace WVC_TrueXenotypes
 
 		// public int recacheFrequency = 60;
 
+		public float minMatchPercent = 0.75f;
+
 		// public IntRange resurrectionDelay = new(6000, 9000);
 
 		public string uniqueTag = "trueXenotype";
@@ -82,7 +84,7 @@ namespace WVC_TrueXenotypes
 			{
 				return;
 			}
-			if (TryUpdatedXenotype(pawn))
+			if (NewTryUpdatedXenotype(pawn))
 			{
 				xenotypeUpdated = true;
 			}
@@ -97,7 +99,7 @@ namespace WVC_TrueXenotypes
 					defaultLabel = "DEV: TryUpdatedXenotype",
 					action = delegate
 					{
-						TryUpdatedXenotype(parent as Pawn);
+						NewTryUpdatedXenotype(parent as Pawn);
 					}
 				};
 				yield return command_Action;
@@ -132,6 +134,7 @@ namespace WVC_TrueXenotypes
 			xenotypeUpdated = false;
 		}
 
+		[Obsolete]
 		public bool TryUpdatedXenotype(Pawn pawn)
 		{
 			if (pawn != null)
@@ -181,6 +184,105 @@ namespace WVC_TrueXenotypes
 							resultXenotype = item.Key;
 						}
 					}
+				}
+				bool baseliner = true;
+				// GeneDef melanin = pawn.genes.GetMelaninGene();
+				// GeneDef hairColor = pawn.genes.GetHairColorGene();
+				foreach (GeneDef geneDef in pawnGenes)
+				{
+					if (geneDef.passOnDirectly)
+					{
+						baseliner = false;
+						break;
+					}
+				}
+				if (!baseliner && resultXenotype != XenotypeDefOf.Baseliner)
+				{
+					pawn.genes?.SetXenotypeDirect(resultXenotype);
+				}
+				else if (!baseliner)
+				{
+					pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
+					if (pawn.genes.xenotypeName == null)
+					{
+						pawn.genes.xenotypeName = GeneUtility.GenerateXenotypeNameFromGenes(pawnGenes);
+					}
+					if (pawn.genes.iconDef == null)
+					{
+						pawn.genes.iconDef = DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
+					}
+				}
+				else if (baseliner)
+				{
+					pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
+				}
+				return true;
+			}
+			return false;
+		}
+
+		public bool NewTryUpdatedXenotype(Pawn pawn)
+		{
+			if (pawn != null)
+			{
+				if (pawn.genes.Xenotype != XenotypeDefOf.Baseliner)
+				{
+					return true;
+				}
+				// List<XenotypeDef> xenotypes = DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2);
+				List<GeneDef> pawnGenes = ConvertGenesInGeneDefs(pawn.genes.GenesListForReading);
+				Dictionary<XenotypeDef, float> matchedXenotypes = new();
+				bool xenos = !pawn.genes.Xenogenes.NullOrEmpty();
+				foreach (XenotypeDef xenotypeDef in DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2))
+				{
+					if (xenotypeDef.genes.NullOrEmpty())
+					{
+						continue;
+					}
+					if (!xenos && !xenotypeDef.inheritable)
+					{
+						continue;
+					}
+					float matchingGenesCount = 0f;
+					foreach (GeneDef geneDef in xenotypeDef.genes)
+					{
+						if (pawnGenes.Contains(geneDef))
+						{
+							matchingGenesCount++;
+						}
+					}
+					matchedXenotypes[xenotypeDef] = matchingGenesCount;
+				}
+				XenotypeDef resultXenotype = XenotypeDefOf.Baseliner;
+				float currentMatchValue = -999f;
+				if (!matchedXenotypes.NullOrEmpty())
+				{
+					string text = "";
+					foreach (var item in matchedXenotypes)
+					{
+						text += "\n" + item.Key.defName + ": " + item.Value.ToString();
+					}
+					// Log.Error("MatchedXenotypesRate:" + text);
+					foreach (var item in matchedXenotypes)
+					{
+						// Log.Error(item.Key.defName + " | Match: " + item.Value.ToString());
+						if (item.Value < pawnGenes.Count * Props.minMatchPercent)
+						{
+							// Log.Error(item.Key.defName + " skipped.");
+							continue;
+						}
+						if (item.Value > currentMatchValue || item.Value == currentMatchValue && !item.Key.inheritable)
+						{
+							currentMatchValue = item.Value;
+							resultXenotype = item.Key;
+						}
+					}
+				}
+				// Log.Error("Greatest match: " + resultXenotype.defName);
+				if (resultXenotype == XenotypeDefOf.Baseliner && pawn.genes.Xenotype != XenotypeDefOf.Baseliner && pawn.genes.Xenotype.genes.Where((GeneDef geneDef) => geneDef.selectionWeight > 0 && geneDef.canGenerateInGeneSet).ToList().Count == 0)
+				{
+					// Log.Error("Return current xeno: " + pawn.genes.Xenotype.defName);
+					return true;
 				}
 				bool baseliner = true;
 				// GeneDef melanin = pawn.genes.GetMelaninGene();

@@ -9,7 +9,9 @@
 	<WVC_ToolTip_enable_TrueParentGenes>If enabled, it adjusts the gene set in children, they receive all the parents' genes, including archite genes if both parents have them. Affects pregnancy only.</WVC_ToolTip_enable_TrueParentGenes>
 
 	<WVC_Label_enable_TrueXenotypes>True xenotypes</WVC_Label_enable_TrueXenotypes>
-	<WVC_ToolTip_enable_TrueXenotypes>If enabled, it adjusts the pawn's xenotype after gene implantation. The xenotype is assigned relative to the greatest match.</WVC_ToolTip_enable_TrueXenotypes>
+	<WVC_ToolTip_enable_TrueXenotypes>If enabled, it adjusts the pawn's xenotype after gene implantation. The xenotype is assigned relative to the greatest match. Works only if the pawn xenotype remains a baseliner after implantation. Also works for newborns. 
+
+Minimum match must be 75%, otherwise the name and icon are randomized, but the xenotype remains a baseliner.</WVC_ToolTip_enable_TrueXenotypes>
 
 	<WVC_XaG_CustomXenotypesImport_Label>(DEV) Custom xenotypes converter</WVC_XaG_CustomXenotypesImport_Label>
 	<WVC_XaG_CustomXenotypesImport_Desc>All custom xenotypes can be converted into standard xenotypes. Xenotypes converted in this way inherit: the name, genes and inheritance of the selected xenotype. Converted xenotypes are created when the game starts.</WVC_XaG_CustomXenotypesImport_Desc>
