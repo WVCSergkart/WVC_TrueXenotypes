@@ -10,4 +10,4 @@ The main goal of this mod is to adjust pawn xenotypes after changing genes. Sinc
 Each of the features is presented as options and can be enabled/disabled in the settings.
 
 # Warning
-The mod is experimental, it was made with minimal impact on performance in mind. It was tested on most vanilla mechanics, including implantation, pregnancy, duplication and other similar ones.
+The mod is experimental. Although it was made with a focus on minimal impact on performance, it may behave strangely with mods. It was tested on most vanilla mechanics, including implantation, pregnancy, duplication and other similar ones.
