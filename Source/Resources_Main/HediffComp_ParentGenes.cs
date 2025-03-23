@@ -60,7 +60,7 @@ namespace WVC_TrueXenotypes
                 //AddParentGenes(pregnancy.Mother, newGeneSet);
                 //AddParentGenes(pregnancy.Father, newGeneSet);
                 AddParentsGenes(pregnancy.Mother, pregnancy.Father, newGeneSet);
-                if (!parent.pawn.Spawned || Props.addSurrogateGenes)
+                if (pregnancy.Mother == null && pregnancy.Father == null || Props.addSurrogateGenes)
                 {
                     AddParentGenes(parent.pawn, newGeneSet);
                 }
@@ -87,6 +87,23 @@ namespace WVC_TrueXenotypes
 					continue;
 				}
 				geneSet.AddGene(gene);
+			}
+		}
+
+		public override IEnumerable<Gizmo> CompGetGizmos()
+		{
+			if (DebugSettings.ShowDevGizmos)
+			{
+				Command_Action command_Action = new()
+				{
+					defaultLabel = "DEV: TryChildUpdatedXenotype",
+					action = delegate
+					{
+						xenotypeUpdated = false;
+						UpdateGeneSet(true);
+					}
+				};
+				yield return command_Action;
 			}
 		}
 
