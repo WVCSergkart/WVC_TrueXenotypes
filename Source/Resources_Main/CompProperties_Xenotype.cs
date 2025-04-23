@@ -80,7 +80,7 @@ namespace WVC_TrueXenotypes
 				return;
 			}
 			nextTick--;
-			if (parent is not Pawn pawn || !pawn.Spawned || nextTick > 0)
+			if (nextTick > 0 || parent is not Pawn pawn)
 			{
 				return;
 			}
@@ -257,11 +257,11 @@ namespace WVC_TrueXenotypes
 				float currentMatchValue = -999f;
 				if (!matchedXenotypes.NullOrEmpty())
 				{
-					string text = "";
-					foreach (var item in matchedXenotypes)
-					{
-						text += "\n" + item.Key.defName + ": " + item.Value.ToString();
-					}
+					//string text = "";
+					//foreach (var item in matchedXenotypes)
+					//{
+					//	text += "\n" + item.Key.defName + ": " + item.Value.ToString();
+					//}
 					// Log.Error("MatchedXenotypesRate:" + text);
 					foreach (var item in matchedXenotypes)
 					{
