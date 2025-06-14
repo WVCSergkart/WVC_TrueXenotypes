@@ -53,9 +53,9 @@ namespace WVC_TrueXenotypes
 
 		// =================
 
-		public override void CompTick()
+		public override void CompTickInterval(int delta)
 		{
-			Tick();
+			Tick(delta);
 		}
 
 		// public override void CompTickRare()
@@ -68,7 +68,7 @@ namespace WVC_TrueXenotypes
 			// Tick();
 		// }
 
-		public void Tick()
+		public void Tick(int delta)
 		{
 			if (xenotypeUpdated)
 			{
@@ -79,12 +79,12 @@ namespace WVC_TrueXenotypes
 				xenotypeUpdated = true;
 				return;
 			}
-			nextTick--;
+			nextTick -= delta;
 			if (nextTick > 0 || parent is not Pawn pawn)
 			{
 				return;
 			}
-			if (NewTryUpdatedXenotype(pawn))
+			if (TryUpdatedXenotype(pawn))
 			{
 				xenotypeUpdated = true;
 			}
@@ -99,7 +99,7 @@ namespace WVC_TrueXenotypes
 					defaultLabel = "DEV: TryUpdatedXenotype",
 					action = delegate
 					{
-						NewTryUpdatedXenotype(parent as Pawn);
+						TryUpdatedXenotype(parent as Pawn);
 					}
 				};
 				yield return command_Action;
@@ -134,94 +134,89 @@ namespace WVC_TrueXenotypes
 			xenotypeUpdated = false;
 		}
 
-		[Obsolete]
-		public bool TryUpdatedXenotype(Pawn pawn)
-		{
-			if (pawn != null)
-			{
-				// List<XenotypeDef> xenotypes = DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2);
-				List<GeneDef> pawnGenes = ConvertGenesInGeneDefs(pawn.genes.GenesListForReading);
-				Dictionary<XenotypeDef, float> matchedXenotypes = new();
-				bool xenos = !pawn.genes.Xenogenes.NullOrEmpty();
-				foreach (XenotypeDef xenotypeDef in DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2))
-				{
-					if (xenotypeDef.genes.NullOrEmpty())
-					{
-						continue;
-					}
-					if (!xenos && !xenotypeDef.inheritable)
-					{
-						continue;
-					}
-					bool match = true;
-					float matchingGenesCount = 0f;
-					foreach (GeneDef geneDef in xenotypeDef.genes)
-					{
-						if (!pawnGenes.Contains(geneDef))
-						{
-							match = false;
-							break;
-						}
-						matchingGenesCount++;
-					}
-					if (!match)
-					{
-						continue;
-					}
-					// float matchingGenesCount = XaG_GeneUtility.GetMatchingGenesList(pawn.genes.GenesListForReading, xenotypeDef.genes).Count;
-					matchedXenotypes[xenotypeDef] = matchingGenesCount - xenotypeDef.genes.Count;
-				}
-				XenotypeDef resultXenotype = XenotypeDefOf.Baseliner;
-				float currentMatchValue = -999f;
-				if (!matchedXenotypes.NullOrEmpty())
-				{
-					foreach (var item in matchedXenotypes)
-					{
-						// Log.Error(item.Key.defName + " | Match: " + item.Value.ToString());
-						if (item.Value > currentMatchValue || item.Value == currentMatchValue && !item.Key.inheritable)
-						{
-							currentMatchValue = item.Value;
-							resultXenotype = item.Key;
-						}
-					}
-				}
-				bool baseliner = true;
-				// GeneDef melanin = pawn.genes.GetMelaninGene();
-				// GeneDef hairColor = pawn.genes.GetHairColorGene();
-				foreach (GeneDef geneDef in pawnGenes)
-				{
-					if (geneDef.passOnDirectly)
-					{
-						baseliner = false;
-						break;
-					}
-				}
-				if (!baseliner && resultXenotype != XenotypeDefOf.Baseliner)
-				{
-					pawn.genes?.SetXenotypeDirect(resultXenotype);
-				}
-				else if (!baseliner)
-				{
-					pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
-					if (pawn.genes.xenotypeName == null)
-					{
-						pawn.genes.xenotypeName = GeneUtility.GenerateXenotypeNameFromGenes(pawnGenes);
-					}
-					if (pawn.genes.iconDef == null)
-					{
-						pawn.genes.iconDef = DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
-					}
-				}
-				else if (baseliner)
-				{
-					pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
-				}
-				return true;
-			}
-			return false;
-		}
+		//[Obsolete]
+		//public bool TryUpdatedXenotype(Pawn pawn)
+		//{
+		//	if (pawn != null)
+		//	{
+		//		List<GeneDef> pawnGenes = ConvertGenesInGeneDefs(pawn.genes.GenesListForReading);
+		//		Dictionary<XenotypeDef, float> matchedXenotypes = new();
+		//		bool xenos = !pawn.genes.Xenogenes.NullOrEmpty();
+		//		foreach (XenotypeDef xenotypeDef in DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2))
+		//		{
+		//			if (xenotypeDef.genes.NullOrEmpty())
+		//			{
+		//				continue;
+		//			}
+		//			if (!xenos && !xenotypeDef.inheritable)
+		//			{
+		//				continue;
+		//			}
+		//			bool match = true;
+		//			float matchingGenesCount = 0f;
+		//			foreach (GeneDef geneDef in xenotypeDef.genes)
+		//			{
+		//				if (!pawnGenes.Contains(geneDef))
+		//				{
+		//					match = false;
+		//					break;
+		//				}
+		//				matchingGenesCount++;
+		//			}
+		//			if (!match)
+		//			{
+		//				continue;
+		//			}
+		//			matchedXenotypes[xenotypeDef] = matchingGenesCount - xenotypeDef.genes.Count;
+		//		}
+		//		XenotypeDef resultXenotype = XenotypeDefOf.Baseliner;
+		//		float currentMatchValue = -999f;
+		//		if (!matchedXenotypes.NullOrEmpty())
+		//		{
+		//			foreach (var item in matchedXenotypes)
+		//			{
+		//				if (item.Value > currentMatchValue || item.Value == currentMatchValue && !item.Key.inheritable)
+		//				{
+		//					currentMatchValue = item.Value;
+		//					resultXenotype = item.Key;
+		//				}
+		//			}
+		//		}
+		//		bool baseliner = true;
+		//		foreach (GeneDef geneDef in pawnGenes)
+		//		{
+		//			if (geneDef.passOnDirectly)
+		//			{
+		//				baseliner = false;
+		//				break;
+		//			}
+		//		}
+		//		if (!baseliner && resultXenotype != XenotypeDefOf.Baseliner)
+		//		{
+		//			pawn.genes?.SetXenotypeDirect(resultXenotype);
+		//		}
+		//		else if (!baseliner)
+		//		{
+		//			pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
+		//			if (pawn.genes.xenotypeName == null)
+		//			{
+		//				pawn.genes.xenotypeName = GeneUtility.GenerateXenotypeNameFromGenes(pawnGenes);
+		//			}
+		//			if (pawn.genes.iconDef == null)
+		//			{
+		//				pawn.genes.iconDef = DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
+		//			}
+		//		}
+		//		else if (baseliner)
+		//		{
+		//			pawn.genes?.SetXenotypeDirect(XenotypeDefOf.Baseliner);
+		//		}
+		//		return true;
+		//	}
+		//	return false;
+		//}
 
-		public bool NewTryUpdatedXenotype(Pawn pawn)
+		public bool TryUpdatedXenotype(Pawn pawn)
 		{
 			if (pawn != null)
 			{
