@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationAdd">
+	  <xpath>/Defs/ThingDef[defName="Human"]/comps</xpath>
+	  <value>
+		  <li Class="WVC_TrueXenotypes.CompProperties_Xenotype"/>
+	  </value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+	  <xpath>/Defs/HediffDef[defName="PregnantHuman"]/comps</xpath>
+	  <value>
+		<li Class="WVC_TrueXenotypes.HediffCompProperties_TrueParentGenes">
+		  <compClass>WVC_TrueXenotypes.HediffComp_TrueParentGenes</compClass>
+		</li>
+	  </value>
+	</Operation>
+
+</Patch>
