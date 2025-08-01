@@ -95,7 +95,7 @@ namespace WVC_TrueXenotypes
 		{
 			if (DebugSettings.ShowDevGizmos)
 			{
-				Command_Action command_Action = new()
+                yield return new Command_Action
 				{
 					defaultLabel = "DEV: TryUpdatedXenotype",
 					action = delegate
@@ -103,13 +103,20 @@ namespace WVC_TrueXenotypes
 						TryUpdatedXenotype(parent as Pawn);
 					}
 				};
-				yield return command_Action;
-			}
+				//yield return new Command_Action
+				//{
+				//	defaultLabel = "DEV: AddGene",
+				//	action = delegate
+				//	{
+				//		(parent as Pawn).genes.AddGene(DefDatabase<GeneDef>.GetNamed("PsychicAbility_Dull"), true);
+				//	}
+				//};
+            }
 		}
 
 		public static List<GeneDef> ConvertGenesInGeneDefs(List<Gene> genes)
 		{
-			List<GeneDef> geneDefs = new();
+			List<GeneDef> geneDefs = [];
 			foreach (Gene item in genes)
 			{
 				geneDefs.Add(item.def);
@@ -119,14 +126,8 @@ namespace WVC_TrueXenotypes
 
 		public static void ResetPawnXenotype(Pawn pawn)
 		{
-			// Log.Error("Check CompHumanlike");
-			CompXenotype humanlike = pawn.TryGetComp<CompXenotype>();
-			if (humanlike != null)
-			{
-				// Log.Error("CompHumanlike Reset");
-				humanlike.ResetXenotype();
-			}
-		}
+            pawn.TryGetComp<CompXenotype>()?.ResetXenotype();
+        }
 
 		public void ResetXenotype()
 		{
@@ -229,7 +230,7 @@ namespace WVC_TrueXenotypes
 			}
 			// List<XenotypeDef> xenotypes = DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2);
 			List<GeneDef> pawnGenes = ConvertGenesInGeneDefs(pawn.genes.GenesListForReading);
-			Dictionary<XenotypeDef, float> matchedXenotypes = new();
+			Dictionary<XenotypeDef, float> matchedXenotypes = [];
 			bool xenos = !pawn.genes.Xenogenes.NullOrEmpty();
 			foreach (XenotypeDef xenotypeDef in DefDatabase<XenotypeDef>.AllDefsListForReading.OrderBy((XenotypeDef xeno) => xeno.inheritable ? 1 : 2))
 			{
@@ -307,14 +308,8 @@ namespace WVC_TrueXenotypes
 				//{
 
 				//}
-				if (pawn.genes.xenotypeName == null)
-				{
-					pawn.genes.xenotypeName = GeneUtility.GenerateXenotypeNameFromGenes(pawnGenes);
-				}
-				if (pawn.genes.iconDef == null)
-				{
-					pawn.genes.iconDef = DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
-				}
+				pawn.genes.xenotypeName ??= GeneUtility.GenerateXenotypeNameFromGenes(pawnGenes);
+				pawn.genes.iconDef ??= DefDatabase<XenotypeIconDef>.AllDefsListForReading.RandomElement();
 			}
 			else if (baseliner)
 			{

@@ -27,18 +27,16 @@ Minimum match must be 75%, otherwise the name and icon are randomized, but the x
 	<WVC_Label_enable_CustomXenotypeImporter>Enable custom xenotype convert</WVC_Label_enable_CustomXenotypeImporter>
 	<WVC_ToolTip_enable_CustomXenotypeImporter>If enabled, the necessary defs will be created for converted xenotypes when the game starts.</WVC_ToolTip_enable_CustomXenotypeImporter>
 
-	<WVC_Label_enable_GenesGroups>Enable genes group (Prototype)</WVC_Label_enable_GenesGroups>
-	<WVC_ToolTip_enable_GenesGroups>If enabled, allows you to replace gene defs that are marked as "identical".
+	<WVC_Label_enable_GenesGroups>(Exp) Enable genes group</WVC_Label_enable_GenesGroups>
+	<WVC_ToolTip_enable_GenesGroups>After enabling, an additional tab will appear in which you can create gene groups from any genes.
 
-How it works. After enabling, 2 tabs appear:
-  - Genes - it contains all genes, you can create a gene group there and add any genes you want.
-  - Genes group - Contains all gene groups, and allows you to delete the contents of groups.
+How it works. After creating a group and the next time you launch the game, all genes from the groups will be replaced by the main gene in the group and will not spawn. After loading the save, the genes will also be replaced. However, disabling the option will not return the old gene.
 
-Gene groups are lists, where there is a Main gene and all the others. When the game creates a gene, these lists are requested and if the gene being created is on the list, it is replaced with the Main gene from the group.
+Since this does not replace the def and does not delete the old def, be careful, if the link to the def was hardcoded, then most likely it will not be possible to replace it and the triggers associated with the original def will not work.
 
-This option does not delete gene defs, in the editor, in descriptions and in everything else, old genes will be mentioned, but when created, they will be replaced with others. This means that hardcoded defs will remain tied to old genes and the triggers that they pull will not work.
+Be extremely careful and cautious!
 
-!!! This option is a prototype, and may not be supported in the future or will be reworked, keep this in mind. !!!</WVC_ToolTip_enable_GenesGroups>
+Changing this option or groups requires a mandatory restart!</WVC_ToolTip_enable_GenesGroups>
 
 	<WVC_TrueXenotypes_Tab_GenesSettings>Genes</WVC_TrueXenotypes_Tab_GenesSettings>
 	<WVC_TrueXenotypes_Tab_GenesGroupSettings>Genes groups</WVC_TrueXenotypes_Tab_GenesGroupSettings>
@@ -52,5 +50,10 @@ This option does not delete gene defs, in the editor, in descriptions and in eve
 	<WVC_TX_GeneGroupAddToGroupSucces>Gene added to group.</WVC_TX_GeneGroupAddToGroupSucces>
 	<WVC_TX_RemoveGroup>Remove this group</WVC_TX_RemoveGroup>
 	<WVC_TX_Title>Group similar genes</WVC_TX_Title>
+	<WVC_TX_GenesList>============= GENES =============</WVC_TX_GenesList>
+	<WVC_TX_GroupsList>============= GROUPS =============</WVC_TX_GroupsList>
+
+	<WVC_XT_AllGroupsResetWarning>This action will delete all created groups, are you sure?</WVC_XT_AllGroupsResetWarning>
+	<WVC_XT_AllGroupsReseted>Genes groups reseted.</WVC_XT_AllGroupsReseted>
 
 </LanguageData>

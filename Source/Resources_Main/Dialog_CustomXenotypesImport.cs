@@ -25,16 +25,15 @@ namespace WVC_TrueXenotypes
 			{
 				if (GameDataSaveLoader.TryLoadXenotype(filePath, out var xenotype))
 				{
-					if (WVC_TrueXenotypes.settings.importedCustomXenotypes == null)
-					{
-						WVC_TrueXenotypes.settings.importedCustomXenotypes = new();
-					}
-					XenotypeProp newXenotype = new();
-					newXenotype.label = xenotype.name;
-					newXenotype.iconPath = xenotype.iconDef.texPath;
-					newXenotype.inheritable = xenotype.inheritable;
-					newXenotype.geneDefs = new();
-					foreach (GeneDef geneDef in xenotype.genes)
+					WVC_TrueXenotypes.settings.importedCustomXenotypes ??= [];
+                    XenotypeProp newXenotype = new()
+                    {
+                        label = xenotype.name,
+                        iconPath = xenotype.iconDef.texPath,
+                        inheritable = xenotype.inheritable,
+                        geneDefs = []
+                    };
+                    foreach (GeneDef geneDef in xenotype.genes)
 					{
 						newXenotype.geneDefs.Add(geneDef.defName);
 					}

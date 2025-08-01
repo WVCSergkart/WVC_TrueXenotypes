@@ -12,10 +12,56 @@ namespace WVC_TrueXenotypes
 	public static class Utility
 	{
 
-		// CustomXenotypes
+        // CustomXenotypes
+
+        public static bool GenesDictionaryEnabled => WVC_TrueXenotypes.settings.enable_GenesGroups;
+
+        public static string GetGeneDefName(string oldGeneDef)
+        {
+            if (!GenesDictionaryEnabled)
+            {
+                return oldGeneDef;
+            }
+            foreach (GeneGroup group in WVC_TrueXenotypes.settings.geneGroups)
+            {
+                string newName = group.GetGeneDefName(oldGeneDef);
+                if (newName != oldGeneDef)
+                {
+                    return newName;
+                }
+            }
+            return oldGeneDef;
+        }
+
+        public static bool GetGroupAndGene(GeneDef geneDef, out GeneDef newGeneDef)
+        {
+            newGeneDef = null;
+            if (!GenesDictionaryEnabled)
+            {
+                return false;
+            }
+            foreach (GeneGroup group in WVC_TrueXenotypes.settings.geneGroups)
+            {
+                if (group.MainGeneDef == geneDef)
+                {
+                    return false;
+                }
+                if (group.GeneDefs.Contains(geneDef))
+                {
+                    newGeneDef = group.MainGeneDef;
+                    break;
+                }
+            }
+            return newGeneDef != null;
+        }
+
+        public static bool InAnyGroup(GeneDef geneDef)
+        {
+            return WVC_TrueXenotypes.settings.geneGroups.Where((group) => group.GeneDefs.Contains(geneDef) || group.MainGeneDef == geneDef).Any();
+        }
 
 
-		public static GeneDef ConvertToDef(this string geneDef)
+        public static GeneDef ConvertToDef(this string geneDef)
 		{
 			foreach (GeneDef dataGene in DefDatabase<GeneDef>.AllDefsListForReading)
 			{
@@ -30,7 +76,7 @@ namespace WVC_TrueXenotypes
 
 		public static List<GeneDef> ConvertToDefs(this List<string> geneDefs)
 		{
-			List<GeneDef> list = new();
+			List<GeneDef> list = [];
 			foreach (GeneDef dataGene in DefDatabase<GeneDef>.AllDefsListForReading)
 			{
 				foreach (string groupGene in geneDefs)
@@ -80,7 +126,7 @@ namespace WVC_TrueXenotypes
 
 		public static List<GeneDef> GetGenesByNames(List<string> genes, List<GeneDef> geneDefs)
 		{
-			List<GeneDef> list = new();
+			List<GeneDef> list = [];
 			foreach (GeneDef geneDef in geneDefs)
 			{
 				if (genes.Contains(geneDef.defName))

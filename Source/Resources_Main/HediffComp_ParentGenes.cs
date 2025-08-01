@@ -109,8 +109,8 @@ namespace WVC_TrueXenotypes
 
 		public static void AddParentsGenes(Pawn mother, Pawn father, GeneSet geneSet)
 		{
-			List<GeneDef> newGenes = new();
-			List<GeneDef> matchGenes = new();
+			List<GeneDef> newGenes = [];
+			List<GeneDef> matchGenes = [];
 			if (father?.genes != null)
 			{
 				List<GeneDef> genes = CompXenotype.ConvertGenesInGeneDefs(father.genes.Endogenes);

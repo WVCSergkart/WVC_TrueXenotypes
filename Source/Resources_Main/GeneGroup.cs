@@ -40,10 +40,7 @@ namespace WVC_TrueXenotypes
         {
             get
             {
-                if (cachedMainDef == null)
-                {
-                    cachedMainDef = geneDef.ConvertToDef();
-                }
+                cachedMainDef ??= geneDef.ConvertToDef();
                 return cachedMainDef;
             }
         }
@@ -53,19 +50,25 @@ namespace WVC_TrueXenotypes
         {
             get
             {
-                if (cachedGeneDefs == null)
-                {
-                    cachedGeneDefs = geneDefs.ConvertToDefs();
-                }
+                cachedGeneDefs ??= geneDefs.ConvertToDefs();
                 return cachedGeneDefs;
             }
+        }
+
+        public string GetGeneDefName(string oldGeneDef)
+        {
+            if (geneDefs.Contains(oldGeneDef))
+            {
+                return geneDef;
+            }
+            return oldGeneDef;
         }
 
         public void AddGene(GeneDef geneDef)
         {
             if (geneDefs.NullOrEmpty())
             {
-                geneDefs = new();
+                geneDefs = [];
             }
             if (!geneDefs.Contains(geneDef.defName))
             {
@@ -78,7 +81,7 @@ namespace WVC_TrueXenotypes
         {
             if (geneDefs.NullOrEmpty())
             {
-                geneDefs = new();
+                geneDefs = [];
             }
             if (geneDefs.Contains(geneDef.defName))
             {

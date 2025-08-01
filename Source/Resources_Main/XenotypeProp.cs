@@ -14,7 +14,7 @@ namespace WVC_TrueXenotypes
 
 		public bool inheritable;
 
-		public List<string> geneDefs = new();
+		public List<string> geneDefs = [];
 
 		public string iconPath;
 
