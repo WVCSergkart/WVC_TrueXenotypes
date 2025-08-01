@@ -6,6 +6,7 @@ The main goal of this mod is to adjust pawn xenotypes after changing genes. Sinc
 - Updating the xenotype after changing genes. The pawn xenotype will be adjusted relative to the genes, to the most similar. This only affects if the xenotype remains a baseliner after implantation.
 - Adjusting the genes of children. Forced addition of endogenes of parents, regardless of their complexity. As a bonus, inheritance of archite genes, provided that both parents have these genes.
 - Generation of xenotypes from custom xenotypes. Allows you to save a copy of the genes of a custom xenotype, so that later when you start the game, the game generates a full-fledged xenotype based on it.
+- Genes dupes merging (Exp). Allows you to create groups of genes that you think are the same and overwrite them with one of the genes. At the moment, this option is experimental and poorly tested.
 
 Each of the features is presented as options and can be enabled/disabled in the settings.
 
