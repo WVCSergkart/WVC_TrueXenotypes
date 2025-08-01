@@ -18,13 +18,39 @@ Minimum match must be 75%, otherwise the name and icon are randomized, but the x
 
 	<WVC_XaG_DialogCustomXenotypesImport>Convert</WVC_XaG_DialogCustomXenotypesImport>
 	<WVC_XaG_ButtonCustomXenotypesImport>Convert custom xenotypes</WVC_XaG_ButtonCustomXenotypesImport>
-	<WVC_XaG_ButtonCustomXenotypesImport_Reset>Clear all converted xenotypes</WVC_XaG_ButtonCustomXenotypesImport_Reset>
-	<WVC_XaG_ButtonCustomXenotypesImport_Reseted>All converted xenotypes were removed.</WVC_XaG_ButtonCustomXenotypesImport_Reseted>
-	<WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>All converted xenotypes will be deleted. Are you sure?</WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>
+	<WVC_XaG_ButtonCustomXenotypesImport_Reset>Remove custom xenotype from convert list</WVC_XaG_ButtonCustomXenotypesImport_Reset>
+	<WVC_XaG_ButtonCustomXenotypesImport_Reseted>Сonverted xenotype were removed.</WVC_XaG_ButtonCustomXenotypesImport_Reseted>
+	<WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>The removed xenotype cannot be returned. Are you sure?</WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>
 
 	<WVC_XaG_DialogCustomXenotypesImport_Success>The xenotype has been converted and will be loaded the next time you start the game.</WVC_XaG_DialogCustomXenotypesImport_Success>
 
 	<WVC_Label_enable_CustomXenotypeImporter>Enable custom xenotype convert</WVC_Label_enable_CustomXenotypeImporter>
 	<WVC_ToolTip_enable_CustomXenotypeImporter>If enabled, the necessary defs will be created for converted xenotypes when the game starts.</WVC_ToolTip_enable_CustomXenotypeImporter>
+
+	<WVC_Label_enable_GenesGroups>Enable genes group (Prototype)</WVC_Label_enable_GenesGroups>
+	<WVC_ToolTip_enable_GenesGroups>If enabled, allows you to replace gene defs that are marked as "identical".
+
+How it works. After enabling, 2 tabs appear:
+  - Genes - it contains all genes, you can create a gene group there and add any genes you want.
+  - Genes group - Contains all gene groups, and allows you to delete the contents of groups.
+
+Gene groups are lists, where there is a Main gene and all the others. When the game creates a gene, these lists are requested and if the gene being created is on the list, it is replaced with the Main gene from the group.
+
+This option does not delete gene defs, in the editor, in descriptions and in everything else, old genes will be mentioned, but when created, they will be replaced with others. This means that hardcoded defs will remain tied to old genes and the triggers that they pull will not work.
+
+!!! This option is a prototype, and may not be supported in the future or will be reworked, keep this in mind. !!!</WVC_ToolTip_enable_GenesGroups>
+
+	<WVC_TrueXenotypes_Tab_GenesSettings>Genes</WVC_TrueXenotypes_Tab_GenesSettings>
+	<WVC_TrueXenotypes_Tab_GenesGroupSettings>Genes groups</WVC_TrueXenotypes_Tab_GenesGroupSettings>
+	<WVC_TX_GeneGroup_Search>Search</WVC_TX_GeneGroup_Search>
+	<WVC_TX_ResetGeneGroup>Reset</WVC_TX_ResetGeneGroup>
+	<WVC_TX_AddGeneToGeneGroup>Add gene to group</WVC_TX_AddGeneToGeneGroup>
+	<WVC_TX_RemoveGeneFromGroup>Remove gene from group</WVC_TX_RemoveGeneFromGroup>
+	<WVC_TX_GeneRemoveSucces>Gene removed from group.</WVC_TX_GeneRemoveSucces>
+	<WVC_TX_CreateGeneGroup>Create group from gene</WVC_TX_CreateGeneGroup>
+	<WVC_TX_GeneGroupCreateSucces>Group created.</WVC_TX_GeneGroupCreateSucces>
+	<WVC_TX_GeneGroupAddToGroupSucces>Gene added to group.</WVC_TX_GeneGroupAddToGroupSucces>
+	<WVC_TX_RemoveGroup>Remove this group</WVC_TX_RemoveGroup>
+	<WVC_TX_Title>Group similar genes</WVC_TX_Title>
 
 </LanguageData>

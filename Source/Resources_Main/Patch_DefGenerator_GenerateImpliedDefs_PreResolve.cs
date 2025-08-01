@@ -14,14 +14,14 @@ using HarmonyLib;
 namespace WVC_TrueXenotypes
 {
 
-	[HarmonyPatch(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve")]
-	public static class WVC_DefGenerator_GenerateImpliedDefs_PreResolve_Patch
+    [HarmonyPatch(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve")]
+	public static class Patch_DefGenerator_GenerateImpliedDefs_PreResolve
 	{
 
 		[HarmonyPostfix]
 		public static void Postfix()
 		{
-			GeneratorUtility.CustomXenotypesImport();
+			Utility.CustomXenotypesImport();
 		}
 
 	}

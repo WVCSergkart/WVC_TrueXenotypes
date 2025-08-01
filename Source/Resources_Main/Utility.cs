@@ -9,10 +9,40 @@ using static Verse.GeneSymbolPack;
 namespace WVC_TrueXenotypes
 {
 
-	public static class GeneratorUtility
+	public static class Utility
 	{
 
 		// CustomXenotypes
+
+
+		public static GeneDef ConvertToDef(this string geneDef)
+		{
+			foreach (GeneDef dataGene in DefDatabase<GeneDef>.AllDefsListForReading)
+			{
+				if (dataGene.defName.Contains(geneDef))
+				{
+					return dataGene;
+				}
+			}
+			return null;
+		}
+
+
+		public static List<GeneDef> ConvertToDefs(this List<string> geneDefs)
+		{
+			List<GeneDef> list = new();
+			foreach (GeneDef dataGene in DefDatabase<GeneDef>.AllDefsListForReading)
+			{
+				foreach (string groupGene in geneDefs)
+				{
+					if (dataGene.defName.Contains(groupGene))
+					{
+						list.Add(dataGene);
+					}
+				}
+			}
+			return list;
+		}
 
 		public static void CustomXenotypesImport()
 		{
