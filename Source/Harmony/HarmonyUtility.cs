@@ -68,7 +68,7 @@ namespace WVC_TrueXenotypes
 
         public static bool Patch_Dialog_CreateXenotype_DrawGene(GeneDef geneDef, ref bool __result)
         {
-            if (Utility.GetGroupAndGene(geneDef, out _))
+            if (StaticCollectionsClass.hidedGeneDefs.Contains(geneDef))
             {
                 __result = false;
                 return false;

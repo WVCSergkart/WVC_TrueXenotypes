@@ -70,6 +70,8 @@
     <Compile Include="Resources_Main\Dialog_CustomXenotypesImport.cs" />
     <Compile Include="Resources_Main\HediffComp_ParentGenes.cs" />
     <Compile Include="Resources_Main\ModSettings.cs" />
+    <Compile Include="Resources_Main\PostInitial.cs" />
+    <Compile Include="Resources_Main\StaticCollection.cs" />
     <Compile Include="Resources_Main\XenotypeProp.cs" />
     <Compile Include="Resources_Main\Utility.cs" />
   </ItemGroup>

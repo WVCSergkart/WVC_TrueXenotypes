@@ -253,13 +253,13 @@ namespace WVC_TrueXenotypes
 					var iconRect = new Rect(infoRect.xMax + 5, outerPos.y + 5, 24, 24);
 					Widgets.DefIcon(iconRect, def);
 					var labelRect = new Rect(iconRect.xMax + 15, outerPos.y + 5, viewArea.width - 85, 24f);
-					Widgets.Label(labelRect, def.LabelCap);
+                    Widgets.Label(labelRect, def.LabelCap);
 					Widgets.DrawHighlightIfMouseover(labelRect);
 					TaggedString label = "WVC_TX_AddGeneToGeneGroup".Translate();
 					var firstRect = new Rect(labelRect.xMax / 2 - label.GetWidthCached(), labelRect.y, label.GetWidthCached() * 1.2f, 24f);
 					if (Widgets.ButtonText(firstRect, label))
 					{
-						if (settings.geneGroups.Where((group) => group.GeneDefs.Contains(def) || group.MainGeneDef == def).Any())
+						if (Utility.InAnyGroup(def))
 						{
 							Messages.Message("WVC_TX_GeneGroupExist".Translate().CapitalizeFirst(), null, MessageTypeDefOf.RejectInput, historical: false);
 						}
@@ -273,7 +273,7 @@ namespace WVC_TrueXenotypes
                     var secondRect = new Rect(firstRect.x + width + 5, firstRect.y, width, 24f);
 					if (Widgets.ButtonText(secondRect, "WVC_TX_CreateGeneGroup".Translate()))
                     {
-                        if (settings.geneGroups.Where((group) => group.GeneDefs.Contains(def) || group.MainGeneDef == def).Any())
+                        if (Utility.InAnyGroup(def))
 						{
 							Messages.Message("WVC_TX_GeneGroupExist".Translate().CapitalizeFirst(), null, MessageTypeDefOf.RejectInput, historical: false);
 						}
