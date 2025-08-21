@@ -124,16 +124,23 @@ namespace WVC_TrueXenotypes
 			listingStandard.CheckboxLabeled("WVC_Label_enable_TrueXenotypes".Translate(), ref settings.enable_TrueXenotypes, "WVC_ToolTip_enable_TrueXenotypes".Translate());
 			listingStandard.CheckboxLabeled("WVC_Label_enable_CustomXenotypeImporter".Translate(), ref settings.enable_CustomXenotypeImporter, "WVC_ToolTip_enable_CustomXenotypeImporter".Translate());
 			listingStandard.CheckboxLabeled("WVC_Label_enable_GenesGroups".Translate(), ref settings.enable_GenesGroups, "WVC_ToolTip_enable_GenesGroups".Translate());
-			if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport".Translate()))
-			{
-				Find.WindowStack.Add(new Dialog_CustomXenotypes_Import());
-			}
-			if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport_Reset".Translate()))
-			{
-				Find.WindowStack.Add(new Dialog_CustomXenotypes_Remove());
-			}
-			// =============== Buttons ===============
-			listingStandard.End();
+			if (settings.enable_CustomXenotypeImporter)
+            {
+                if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport".Translate()))
+                {
+                    Find.WindowStack.Add(new Dialog_CustomXenotypes_Import());
+                }
+                if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport_Reset".Translate()))
+                {
+                    Find.WindowStack.Add(new Dialog_CustomXenotypes_Remove());
+                }
+                if (listingStandard.ButtonText("WVC_XaG_ButtonCustomXenotypesImport_SetDesciption".Translate()))
+                {
+                    Find.WindowStack.Add(new Dialog_CustomXenotypes_SetDesc());
+                }
+            }
+            // =============== Buttons ===============
+            listingStandard.End();
 			Widgets.EndScrollView();
 		}
 

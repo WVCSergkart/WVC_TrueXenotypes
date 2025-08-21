@@ -108,54 +108,48 @@ namespace WVC_TrueXenotypes
 		}
 
 		public static void AddParentsGenes(Pawn mother, Pawn father, GeneSet geneSet)
-		{
-			List<GeneDef> newGenes = [];
-			List<GeneDef> matchGenes = [];
-			if (father?.genes != null)
-			{
-				List<GeneDef> genes = CompXenotype.ConvertGenesInGeneDefs(father.genes.Endogenes);
-				foreach (GeneDef gene in genes)
-				{
-					if (newGenes.Contains(gene))
-					{
-						matchGenes.Add(gene);
-						continue;
-					}
-					newGenes.Add(gene);
-				}
-			}
-			if (mother?.genes != null)
-			{
-				List<GeneDef> genes = CompXenotype.ConvertGenesInGeneDefs(mother.genes.Endogenes);
-				foreach (GeneDef gene in genes)
-				{
-					if (newGenes.Contains(gene))
-					{
-						matchGenes.Add(gene);
-						continue;
-					}
-					newGenes.Add(gene);
-				}
-			}
-			if (newGenes.NullOrEmpty())
-			{
-				return;
-			}
-			foreach (GeneDef gene in newGenes)
-			{
-				if (gene.biostatArc != 0 && !matchGenes.Contains(gene) && mother != null && father != null)
-				{
-					continue;
-				}
-				if (geneSet.GenesListForReading.Contains(gene))
-				{
-					continue;
-				}
-				geneSet.AddGene(gene);
-			}
-		}
+        {
+            List<GeneDef> newGenes = [];
+            List<GeneDef> matchGenes = [];
+            AddGenes(father, newGenes, matchGenes);
+            AddGenes(mother, newGenes, matchGenes);
+            if (newGenes.NullOrEmpty())
+            {
+                return;
+            }
+            foreach (GeneDef gene in newGenes)
+            {
+                if (gene.biostatArc != 0 && !matchGenes.Contains(gene))
+                {
+                    continue;
+                }
+                if (geneSet.GenesListForReading.Contains(gene))
+                {
+                    continue;
+                }
+                geneSet.AddGene(gene);
+            }
 
-		public override void CompExposeData()
+            static void AddGenes(Pawn parent, List<GeneDef> newGenes, List<GeneDef> matchGenes)
+            {
+                if ((parent?.genes) == null)
+                {
+                    return;
+                }
+                List<GeneDef> genes = CompXenotype.ConvertGenesInGeneDefs(parent.genes.Endogenes);
+                foreach (GeneDef gene in genes)
+                {
+                    if (newGenes.Contains(gene))
+                    {
+                        matchGenes.Add(gene);
+                        continue;
+                    }
+                    newGenes.Add(gene);
+                }
+            }
+        }
+
+        public override void CompExposeData()
 		{
 			base.CompExposeData();
 			Scribe_Values.Look(ref xenotypeUpdated, Props.uniqueTag + "_xenotypeUpdated", false);

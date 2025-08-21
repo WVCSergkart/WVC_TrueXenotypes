@@ -121,7 +121,11 @@ namespace WVC_TrueXenotypes
 				inheritable = prop.inheritable,
 				iconPath = prop.iconPath
 			};
-			return xenotypeDef;
+            if (!prop.description.NullOrEmpty())
+            {
+                xenotypeDef.description = prop.description;
+            }
+            return xenotypeDef;
 		}
 
 		public static List<GeneDef> GetGenesByNames(List<string> genes, List<GeneDef> geneDefs)

@@ -27,7 +27,7 @@ Minimum match must be 75%, otherwise the name and icon are randomized, but the x
 	<WVC_Label_enable_CustomXenotypeImporter>Enable custom xenotype convert</WVC_Label_enable_CustomXenotypeImporter>
 	<WVC_ToolTip_enable_CustomXenotypeImporter>If enabled, the necessary defs will be created for converted xenotypes when the game starts.</WVC_ToolTip_enable_CustomXenotypeImporter>
 
-	<WVC_Label_enable_GenesGroups>(Exp) Enable genes group</WVC_Label_enable_GenesGroups>
+	<WVC_Label_enable_GenesGroups>Enable genes group</WVC_Label_enable_GenesGroups>
 	<WVC_ToolTip_enable_GenesGroups>After enabling, an additional tab will appear in which you can create gene groups from any genes.
 
 How it works. After creating a group and the next time you launch the game, all genes from the groups will be replaced by the main gene in the group and will not spawn. After loading the save, the genes will also be replaced. However, disabling the option will not return the old gene.
@@ -55,5 +55,9 @@ Changing this option or groups requires a mandatory restart!</WVC_ToolTip_enable
 
 	<WVC_XT_AllGroupsResetWarning>This action will delete all created groups, are you sure?</WVC_XT_AllGroupsResetWarning>
 	<WVC_XT_AllGroupsReseted>Genes groups reseted.</WVC_XT_AllGroupsReseted>
+
+	<WVC_XaG_ButtonCustomXenotypesImport_SetDesciption>Set xenotype desc</WVC_XaG_ButtonCustomXenotypesImport_SetDesciption>
+	<WVC_TX_SetDesc>Paste text</WVC_TX_SetDesc>
+	<WVC_TX_ClearDesc>Reset desc</WVC_TX_ClearDesc>
 
 </LanguageData>
