@@ -109,6 +109,11 @@ namespace WVC_TrueXenotypes
 
 		public static void AddParentsGenes(Pawn mother, Pawn father, GeneSet geneSet)
         {
+            if (mother == null || father == null)
+            {
+                AddParentGenes(mother ?? father, geneSet);
+                return;
+            }
             List<GeneDef> newGenes = [];
             List<GeneDef> matchGenes = [];
             AddGenes(father, newGenes, matchGenes);
