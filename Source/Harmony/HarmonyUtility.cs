@@ -23,8 +23,9 @@ namespace WVC_TrueXenotypes
             {
                 //Log.Error("1.0");
                 harmony.Patch(AccessTools.Method(typeof(BackCompatibility), "BackCompatibleDefName"), postfix: new HarmonyMethod(typeof(HarmonyUtility).GetMethod(nameof(Patch_BackCompatibility_BackCompatibleDefName))));
-                //Log.Error("1.1");
-                harmony.Patch(AccessTools.Method(typeof(Dialog_CreateXenotype), "DrawGene"), prefix: new HarmonyMethod(typeof(HarmonyUtility).GetMethod(nameof(Patch_Dialog_CreateXenotype_DrawGene))));
+				//Log.Error("1.1");
+				harmony.Patch(AccessTools.DeclaredPropertyGetter(typeof(GeneUtility), "GenesInOrder"), postfix: new HarmonyMethod(typeof(HarmonyUtility).GetMethod(nameof(Patch_HideGenes))));
+				//harmony.Patch(AccessTools.Method(typeof(Dialog_CreateXenotype), "DrawGene"), prefix: new HarmonyMethod(typeof(HarmonyUtility).GetMethod(nameof(Patch_Dialog_CreateXenotype_DrawGene))));
                 //Log.Error("1.2");
                 harmony.Patch(AccessTools.Method(typeof(DirectXmlCrossRefLoader), "RegisterObjectWantsCrossRef", [typeof(object), typeof(FieldInfo), typeof(string), typeof(string), typeof(string), typeof(Type)]), prefix: new HarmonyMethod(typeof(HarmonyUtility).GetMethod(nameof(Patch_DirectXmlCrossRefLoader_RegisterObjectWantsCrossRef_PatchOne))));
                 //Log.Error("1.3");
@@ -64,17 +65,35 @@ namespace WVC_TrueXenotypes
         public static void Patch_DefGenerator_GenerateImpliedDefs_PreResolve()
         {
             Utility.CustomXenotypesImport();
-        }
+		}
 
-        public static bool Patch_Dialog_CreateXenotype_DrawGene(GeneDef geneDef, ref bool __result)
-        {
-            if (StaticCollectionsClass.hidedGeneDefs.Contains(geneDef))
-            {
-                __result = false;
-                return false;
-            }
-            return true;
-        }
+		private static List<GeneDef> cachedGeneDefsInOrder;
+		public static void Patch_HideGenes(ref List<GeneDef> __result)
+		{
+			if (cachedGeneDefsInOrder == null)
+			{
+				List<GeneDef> newList = new();
+				foreach (GeneDef geneDef in __result)
+				{
+					if (!Utility.GetGroupAndGene(geneDef, out _))
+					{
+						newList.Add(geneDef);
+					}
+				}
+				cachedGeneDefsInOrder = newList;
+			}
+			__result = cachedGeneDefsInOrder;
+		}
+
+		//public static bool Patch_Dialog_CreateXenotype_DrawGene(GeneDef geneDef, ref bool __result)
+  //      {
+  //          if (StaticCollectionsClass.hidedGeneDefs.Contains(geneDef))
+  //          {
+  //              __result = false;
+  //              return false;
+  //          }
+  //          return true;
+  //      }
         public static void Patch_DirectXmlCrossRefLoader_RegisterObjectWantsCrossRef_PatchOne(FieldInfo fi, ref string targetDefName, Type assumeFieldType = null)
         {
             Type c = assumeFieldType ?? fi.FieldType;

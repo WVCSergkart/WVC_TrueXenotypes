@@ -236,7 +236,7 @@ namespace WVC_TrueXenotypes
                     Widgets.Label(labelRect, geneGroup.GroupName);
                     Widgets.DrawHighlightIfMouseover(labelRect);
                     TaggedString label = "WVC_TX_RemoveGeneFromGroup".Translate();
-                    var firstRect = new Rect(labelRect.xMax / 2 - label.GetWidthCached(), labelRect.y, label.GetWidthCached() * 1.2f, 24f);
+                    var firstRect = new Rect(labelRect.xMax / 2 - (label.GetWidthCached() * 0.5f), labelRect.y, label.GetWidthCached() * 1.2f, 24f);
                     if (Widgets.ButtonText(firstRect, label))
                     {
                         GetGeneGroupList(geneGroup);
@@ -278,7 +278,7 @@ namespace WVC_TrueXenotypes
 					label = "WVC_TX_CreateGeneGroup".Translate();
                     float width = label.GetWidthCached() * 1.2f;
                     var secondRect = new Rect(firstRect.x + width + 5, firstRect.y, width, 24f);
-					if (Widgets.ButtonText(secondRect, "WVC_TX_CreateGeneGroup".Translate()))
+					if (Widgets.ButtonText(secondRect, label))
                     {
                         if (Utility.InAnyGroup(def))
 						{

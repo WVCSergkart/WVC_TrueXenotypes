@@ -28,7 +28,7 @@ namespace WVC_TrueXenotypes
                     }
                     else
                     {
-                        cachedGroupKey = "Unknown";
+                        cachedGroupKey = geneDef;
                     }
                 }
                 return cachedGroupKey;

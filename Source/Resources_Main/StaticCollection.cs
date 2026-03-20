@@ -7,10 +7,10 @@ using Verse;
 
 namespace WVC_TrueXenotypes
 {
-    public static class StaticCollectionsClass
-    {
+    //public static class StaticCollectionsClass
+    //{
 
-        public static List<GeneDef> hidedGeneDefs = [];
+    //    public static List<GeneDef> hidedGeneDefs = [];
 
-    }
+    //}
 }

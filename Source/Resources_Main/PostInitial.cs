@@ -8,36 +8,38 @@ using Verse;
 namespace WVC_TrueXenotypes
 {
 
-    [StaticConstructorOnStartup]
-    public static class XaG_PostInitialization
-    {
+    //[StaticConstructorOnStartup]
+    //public static class XaG_PostInitialization
+    //{
 
-        static XaG_PostInitialization()
-        {
-            try
-            {
-               FilterList();
-            }
-            catch (Exception arg)
-            {
-                Log.Error("Initial error. Reason: " + arg);
-            }
-        }
+    //    static XaG_PostInitialization()
+    //    {
+    //        try
+    //        {
+    //           FilterList();
+    //        }
+    //        catch (Exception arg)
+    //        {
+    //            Log.Error("Initial error. Reason: " + arg);
+    //        }
+    //    }
 
-        private static void FilterList()
-        {
-            if (!Utility.GenesDictionaryEnabled)
-            {
-                return;
-            }
-            foreach (GeneDef geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
-            {
-                if (Utility.GetGroupAndGene(geneDef, out _))
-                {
-                    StaticCollectionsClass.hidedGeneDefs.Add(geneDef);
-                }
-            }
-        }
-    }
+    //    private static void FilterList()
+    //    {
+    //        if (!Utility.GenesDictionaryEnabled)
+    //        {
+    //            return;
+    //        }
+    //        foreach (GeneDef geneDef in DefDatabase<GeneDef>.AllDefsListForReading)
+    //        {
+    //            if (Utility.GetGroupAndGene(geneDef, out _))
+    //            {
+    //                //StaticCollectionsClass.hidedGeneDefs.Add(geneDef);
+    //                geneDef.canGenerateInGeneSet = false;
+    //                geneDef.selectionWeight = 0;
+				//}
+    //        }
+    //    }
+    //}
 
 }
