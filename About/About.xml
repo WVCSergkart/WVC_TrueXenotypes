@@ -8,6 +8,7 @@
 	<supportedVersions>
 		<li>1.5</li>
 		<li>1.6</li>
+		<li>1.7</li>
 	</supportedVersions>
 	<packageId>wvc.sergkart.biotech.truexenotypes</packageId>
 	<description>This mod automatically corrects the pawn's xenotype after gene implantation.</description>
