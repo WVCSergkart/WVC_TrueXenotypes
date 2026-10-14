@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+
+	<WVC_TrueXenotypesSettings>True Xenotypes</WVC_TrueXenotypesSettings>
+
+	<WVC_TrueXenotypes_Tab_XenotypesSettings>Xenotypes</WVC_TrueXenotypes_Tab_XenotypesSettings>
+
+	<WVC_Label_enable_TrueParentGenes>True parent genes</WVC_Label_enable_TrueParentGenes>
+	<WVC_ToolTip_enable_TrueParentGenes>If enabled, it adjusts the gene set in children, they receive all the parents' genes, including archite genes if both parents have them. Affects pregnancy only.</WVC_ToolTip_enable_TrueParentGenes>
+
+	<WVC_Label_enable_TrueXenotypes>True xenotypes</WVC_Label_enable_TrueXenotypes>
+	<WVC_ToolTip_enable_TrueXenotypes>If enabled, it adjusts the pawn's xenotype after gene implantation. The xenotype is assigned relative to the greatest match. Works only if the pawn xenotype remains a baseliner after implantation. Also works for newborns. 
+
+Minimum match must be 75%, otherwise the name and icon are randomized, but the xenotype remains a baseliner.</WVC_ToolTip_enable_TrueXenotypes>
+
+	<WVC_XaG_CustomXenotypesImport_Label>(DEV) Custom xenotypes converter</WVC_XaG_CustomXenotypesImport_Label>
+	<WVC_XaG_CustomXenotypesImport_Desc>All custom xenotypes can be converted into standard xenotypes. Xenotypes converted in this way inherit: the name, genes and inheritance of the selected xenotype. Converted xenotypes are created when the game starts.</WVC_XaG_CustomXenotypesImport_Desc>
+
+	<WVC_XaG_DialogCustomXenotypesImport>Convert</WVC_XaG_DialogCustomXenotypesImport>
+	<WVC_XaG_ButtonCustomXenotypesImport>Convert custom xenotypes</WVC_XaG_ButtonCustomXenotypesImport>
+	<WVC_XaG_ButtonCustomXenotypesImport_Reset>Remove custom xenotype from convert list</WVC_XaG_ButtonCustomXenotypesImport_Reset>
+	<WVC_XaG_ButtonCustomXenotypesImport_Reseted>Сonverted xenotype were removed.</WVC_XaG_ButtonCustomXenotypesImport_Reseted>
+	<WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>The removed xenotype cannot be returned. Are you sure?</WVC_XaG_ButtonCustomXenotypesImport_ResetWarning>
+
+	<WVC_XaG_DialogCustomXenotypesImport_Success>The xenotype has been converted and will be loaded the next time you start the game.</WVC_XaG_DialogCustomXenotypesImport_Success>
+
+	<WVC_Label_enable_CustomXenotypeImporter>Enable custom xenotype convert</WVC_Label_enable_CustomXenotypeImporter>
+	<WVC_ToolTip_enable_CustomXenotypeImporter>If enabled, the necessary defs will be created for converted xenotypes when the game starts.</WVC_ToolTip_enable_CustomXenotypeImporter>
+
+	<WVC_Label_enable_GenesGroups>Enable genes group</WVC_Label_enable_GenesGroups>
+	<WVC_ToolTip_enable_GenesGroups>After enabling, an additional tab will appear in which you can create gene groups from any genes.
+
+How it works. After creating a group and the next time you launch the game, all genes from the groups will be replaced by the main gene in the group and will not spawn. After loading the save, the genes will also be replaced. However, disabling the option will not return the old gene.
+
+Since this does not replace the def and does not delete the old def, be careful, if the link to the def was hardcoded, then most likely it will not be possible to replace it and the triggers associated with the original def will not work.
+
+Be extremely careful and cautious!
+
+Changing this option or groups requires a mandatory restart!</WVC_ToolTip_enable_GenesGroups>
+
+	<WVC_TrueXenotypes_Tab_GenesSettings>Genes</WVC_TrueXenotypes_Tab_GenesSettings>
+	<WVC_TrueXenotypes_Tab_GenesGroupSettings>Genes groups</WVC_TrueXenotypes_Tab_GenesGroupSettings>
+	<WVC_TX_GeneGroup_Search>Search</WVC_TX_GeneGroup_Search>
+	<WVC_TX_ResetGeneGroup>Reset</WVC_TX_ResetGeneGroup>
+	<WVC_TX_AddGeneToGeneGroup>Add gene to group</WVC_TX_AddGeneToGeneGroup>
+	<WVC_TX_RemoveGeneFromGroup>Remove gene from group</WVC_TX_RemoveGeneFromGroup>
+	<WVC_TX_GeneRemoveSucces>Gene removed from group.</WVC_TX_GeneRemoveSucces>
+	<WVC_TX_CreateGeneGroup>Create group from gene</WVC_TX_CreateGeneGroup>
+	<WVC_TX_GeneGroupCreateSucces>Group created.</WVC_TX_GeneGroupCreateSucces>
+	<WVC_TX_GeneGroupAddToGroupSucces>Gene added to group.</WVC_TX_GeneGroupAddToGroupSucces>
+	<WVC_TX_RemoveGroup>Remove this group</WVC_TX_RemoveGroup>
+	<WVC_TX_Title>Group similar genes</WVC_TX_Title>
+	<WVC_TX_GenesList>============= GENES =============</WVC_TX_GenesList>
+	<WVC_TX_GroupsList>============= GROUPS =============</WVC_TX_GroupsList>
+
+	<WVC_XT_AllGroupsResetWarning>This action will delete all created groups, are you sure?</WVC_XT_AllGroupsResetWarning>
+	<WVC_XT_AllGroupsReseted>Genes groups reseted.</WVC_XT_AllGroupsReseted>
+
+	<WVC_XaG_ButtonCustomXenotypesImport_SetDesciption>Set xenotype desc</WVC_XaG_ButtonCustomXenotypesImport_SetDesciption>
+	<WVC_TX_SetDesc>Paste text</WVC_TX_SetDesc>
+	<WVC_TX_ClearDesc>Reset desc</WVC_TX_ClearDesc>
+
+</LanguageData>
